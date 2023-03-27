@@ -1,0 +1,93 @@
+.ViewProfile-card{
+    width: 70vh;
+    height: 60vh; 
+    text-align: center;
+    border-radius: 50px;
+    padding-left: 30px;
+    padding-top: 10px;
+    }
+    .input_field{
+        border: 1px ;
+        border-radius: .5em;
+        margin-bottom: 1em;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 1em;
+        text-align: row;
+        width: 300px;
+        padding-left: 30px;
+      }
+      
+
+.container-design{
+  justify-content: center;
+  margin-left: 30vw;
+}
+
+.container-center-view-profile{
+  justify-content: center;
+  margin-left: 30vw;
+}
+
+.map{
+  height: 90vh;
+ 
+}
+
+.btn-map{
+  margin-top: 90vh;
+ margin-left: 205vh;
+}
+
+.gender{
+  align-items: start;
+  margin-right: 40vh;
+}
+
+.profile-card-design{
+  width: 70vh;
+  text-align: center;
+  background-color: white;
+  justify-content: center;
+  flex-direction: column;
+  border-radius:20px;
+  margin-bottom: 5vh;
+  }
+
+  .radio-profile{
+    justify-content: start;
+    text-align: start;
+    align-items: start;
+    margin-left: 7vh;
+  }
+
+  .text-profile{
+    justify-content: start;
+    text-align: start;
+    align-items: start;
+    margin-left: 2vh;
+  }
+
+  .profile-card-design{
+    width: 65vh;
+    background-color: white;
+    border-radius:20px;
+
+
+    }
+.profile-card-service{
+    text-align: start;
+    margin-left: 3vh;
+
+}
+
+.profile-card-peronal-information{
+  text-align: start;
+  width: 60vh;
+  background-color: lightgray;
+padding: 2vh;
+margin-left: 3vh;
+margin-bottom: 2vh;
+}
+
+  

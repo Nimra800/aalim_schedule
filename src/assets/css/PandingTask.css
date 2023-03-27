@@ -1,0 +1,23 @@
+.pandingtask-card{
+    width: 70vh;
+    height: 35vh; 
+    text-align: center;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-top: 10px;
+    }
+    
+    .margin-bottom{
+        margin-bottom: -10px;
+    }
+    
+    .btn-confirm{
+        width: 20vh;
+        background-color: green;
+        margin: 2px;
+        text-align: center;
+    }
+    
+    
+    
+    

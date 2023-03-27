@@ -1,0 +1,30 @@
+.card-design{
+width: 65vh;
+height: 40vh;
+text-align: center;
+background-color: white;
+justify-content: center;
+flex-direction: column;
+border-radius:20px;
+margin-bottom: 5vh;
+}
+
+
+
+
+.img{
+    justify-content: center;
+}
+
+.bg{
+    background-color: lightblue;
+}
+
+.header{
+    margin-left: 5vh;
+}
+
+.container-center{
+    justify-content: center;
+    
+}

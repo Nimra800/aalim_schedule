@@ -1,0 +1,13 @@
+@import "../css/Signup.css";
+@import "../css/AalimDashboard.css";
+@import "../css/Request.css";
+@import "../css/PandingTask.css";
+@import "../css/CompleteTask.css";
+@import "../css/ViewProfile.css";
+@import "../css/Schedule.css";
+@import "../css/Client.css";
+
+
+.btn:not(:disabled):not(.disabled){
+    width: 100% !important;
+}

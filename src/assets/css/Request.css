@@ -1,0 +1,33 @@
+
+
+.request-card{
+width: 70vh;
+height: 55vh; 
+text-align: start;
+border-radius: 20px;
+padding-left: 30px;
+padding-top: 10px;
+}
+
+.margin-bottom{
+    margin-bottom: -10px;
+}
+
+.btn-accept{
+    width: 20vh;
+    background-color: green;
+    margin: 2px;
+}
+
+.btn-reject{
+    width: 20vh;
+    background-color: red;
+    margin: 2px;
+}
+
+.star{
+    width: 50vh;
+    height: 10vh;
+}
+
+
