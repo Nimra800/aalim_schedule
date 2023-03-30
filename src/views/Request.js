@@ -16,12 +16,24 @@ import download from "../../src/assets/img/dumpyicon.png";
 import Backbutton from "../../src/assets/img/Backbutton.png";
 import StarRatings from "react-star-ratings/build/star-ratings";
 import { useState } from "react";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 export const Request = () => {
-    const [rating, setRating] = useState(2);
+    const [rating, setRating] = useState(0);
+    const location = useLocation()
+    const [lstrequest,setListRequest]=useState([])
 
-    const changeRating = (newRating, name) => {
-        setRating(newRating);
-    };
+
+   useEffect(()=>{
+    axios.get("http://192.168.43.218/AalimSchduler/api/request/requestDetails?aalimId="+
+        location.state.data.Id).then((response)=>{
+            console.log(response.data)
+            let newList = [...lstrequest];
+            newList = response.data;
+            setListRequest(newList);
+        })
+   },[])
 
     return (
         <>
@@ -55,18 +67,21 @@ export const Request = () => {
                     />
                 </div>
             </Navbar>
-            <Container className="container-center">
+           {lstrequest.map((e,index)=>{
+            
+            return (
+                <Container className="container-center">
                 <Col>
                     <Card className="request-card shadow">
                         <Row className="margin-bottom">
                             <CardTitle className="px-2">Client Name:</CardTitle>
-                            <CardTitle>Nimra Awan</CardTitle>
+                            <CardTitle>{e.Name}</CardTitle>
                         </Row>
                         <Row className="margin-bottom">
                             <CardTitle className="px-2">
                                 Requested Service:
                             </CardTitle>
-                            <CardTitle>Nikkah</CardTitle>
+                            <CardTitle>{e.Servicess}</CardTitle>
                         </Row>
                         <Row className="margin-bottom">
                             <CardTitle className="px-2">
@@ -74,31 +89,28 @@ export const Request = () => {
                             </CardTitle>
 
                             <StarRatings
-                                rating={rating}
+                                rating={e.Rating??0}
                                 starRatedColor="yellow"
-                                changeRating={changeRating}
+                              
                                 numberOfStars={5}
                                 name="rating"
                                 starDimension="20px"
                                 starSpacing="2px"
                             ></StarRatings>
                         </Row>
-                        <Row className="margin-bottom">
-                            <CardTitle className="px-2">Request Service:</CardTitle>
-                            <CardTitle>Nikkah</CardTitle>
-                        </Row>
+                       
                         <hr></hr>
                         <Row className="margin-bottom">
                             <CardTitle className="px-2">Time:</CardTitle>
-                            <CardTitle>From 2:00PM To 3:00PM</CardTitle>
+                            <CardTitle>From {e.StartTime} To {e.EndTime}</CardTitle>
                         </Row>
                         <Row className="margin-bottom">
                             <CardTitle className="px-2">Date:</CardTitle>
-                            <CardTitle>21/12/22 Distance: 2Km</CardTitle>
+                            <CardTitle>{e.Date}</CardTitle>
                         </Row>
                         <Row className="mb-2">
                             <CardTitle className="px-2">Address:</CardTitle>
-                            <CardTitle>6Road Rawalpindi Location</CardTitle>
+                            <CardTitle>{e.Location}</CardTitle>
                         </Row>
 
                             
@@ -111,6 +123,8 @@ export const Request = () => {
                     </Card>
                 </Col>
             </Container>
+            )
+           })}
         </>
     );
 };

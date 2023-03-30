@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     Card,
     CardTitle,
@@ -15,6 +15,8 @@ import {
     CardSubtitle,
 } from "reactstrap";
 
+
+
 import Notification from "../../src/assets/img/Notification1.png";
 import Logout from "../../src/assets/img/Logout1.png";
 import download from "../../src/assets/img/dumpyicon.png";
@@ -23,9 +25,81 @@ import { useHistory, useLocation } from "react-router-dom";
 import Avatar from "react-avatar";
 import StarRatings from "react-star-ratings/build/star-ratings";
 import { Image } from "react-bootstrap";
+import axios from "axios";
 export const SearchDetailsClient = () => {
     const location = useLocation();
     const history = useHistory();
+    const [id,setId]=useState()
+    const [search, setSearch] = useState(location.state.searchResult);
+
+  
+    
+    console.log(search);
+    function handleSendRequest(index){
+        const data={
+            'Id':0,
+            'AalimId':search[index].Id,
+            'ClientId':location.state.data.Id,
+            'Location':location.state.Location,
+            'StartTime':location.state.time.split('-')[0],
+            'EndTime':location.state.time.split('-')[1],
+            'Servicess':location.state.service,
+            'Date':new Date().toISOString().slice(0, 10),
+            'Status':"Pending"
+            
+        }
+        console.log(data)
+       
+        axios.post('http://192.168.43.218/AalimSchduler/api/request/sendrequest',data).then(response => {
+            if(response.data!="Error"){
+              alert("Request Sent")
+              const newSearch = [...search];
+  newSearch[index].rid = response.data;
+  setSearch(newSearch);
+            }else{
+              alert("Error")
+            }
+             
+            })
+            .catch(error => {
+              alert(error);
+            });
+
+    }
+
+
+    function handleCancelRequest(index){
+        const data={
+            'Id':search[index].rid,
+            'AalimId':search[index].Id,
+            'ClientId':location.state.data.Id,
+            'Location':location.state.Location,
+            'StartTime':location.state.time.split('-')[0],
+            'EndTime':location.state.time.split('-')[1],
+            'Servicess':location.state.service,
+            'Date':new Date().toISOString().slice(0, 10),
+            'Status':"Pending"
+            
+        }
+        console.log(data)
+       
+        axios.post('http://192.168.43.218/AalimSchduler/api/request/cancelrequest',data).then(response => {
+            if(response.data!="Error"){
+              alert("Request Cancelled")
+              const newSearch = [...search];
+  newSearch[index].rid = -1;
+  setSearch(newSearch);
+            }else{
+              alert("Error")
+            }
+             
+            })
+            .catch(error => {
+              alert(error);
+            });
+
+    }
+   
     return (
         <>
             <Navbar className="mb-3 bg" light>
@@ -69,7 +143,7 @@ export const SearchDetailsClient = () => {
                     ></img>
                 </div>
             </Navbar>
-            {location.state.searchResult.map((e, index) => {
+            {search.map((e, index) => {
                 return (
                     <Container className="container-center">
                         <div>
@@ -126,6 +200,16 @@ export const SearchDetailsClient = () => {
                                                 starSpacing="2px"
                                             ></StarRatings>
                                         </div>
+                                    </Row>
+                                    <Row>
+                                       {
+                                        e.rid!=-1?  <Button onClick={()=>handleCancelRequest(index)}>
+                                       Cancel Request
+                                    </Button>:
+                                     <Button onClick={()=>handleSendRequest(index)}>
+                                     Send Request
+                                 </Button>
+                                       }
                                     </Row>
                                 </Col>
                             </Card>

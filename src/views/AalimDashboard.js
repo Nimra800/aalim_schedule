@@ -22,6 +22,7 @@ export const AalimDashboard = () => {
   //Navigation
   const location = useLocation()
   const history = useHistory()
+  
     return (
         <>
             {/* <Container className="container"> */}
@@ -116,7 +117,12 @@ export const AalimDashboard = () => {
                             </Card>
                         </div>
                         <div className="mx-5">
-                            <Card className="card-design shadow" onClick={()=>history.push("/main/request")}>
+                            <Card className="card-design shadow" onClick={()=>history.push(
+                                
+                                {pathname:"/main/request",
+                                state:{
+                                    data:location.state.data
+                                }})}>
                                 <div>
                                     <img
                                         src={Request}

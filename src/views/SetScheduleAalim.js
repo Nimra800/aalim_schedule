@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     Navbar,
@@ -23,7 +23,19 @@ import { useHistory, useLocation } from "react-router-dom";
 
 const SetScheduleAalim = () => {
     const location = useLocation();
-    const history=useHistory()
+    const history=useHistory();
+    const [lstCheckBox, setLstCheckBox] = useState(location.state.lstCheckBox);
+
+  
+        useEffect(()=>{
+           
+     
+            console.log(lstCheckBox)
+        },[])
+        
+        
+    
+
     function handleSave() {
         {
             console.log(location.state.data.Schedules)
@@ -113,7 +125,31 @@ const SetScheduleAalim = () => {
                     return (
                         <>
                             <Col key={index}>
-                                <p>{day}</p>
+                                <p onClick={()=>{
+                                      const newList = [...lstCheckBox];
+                                    lstCheckBox.forEach((e,index)=>{
+                                      
+                                        if(day=="Mon"){
+                                            if (index % 7 == 0) {
+                                               
+                                                newList[index] =  true
+                                              
+                                        
+                                             
+                                             }
+                                        }else  if(day=="Tue"){
+                                            if (index % 7 == 1) {
+                                               
+                                                newList[index] =  true
+                                              
+                                        
+                                             
+                                             }
+                                        }
+                                        
+                                    })
+                                    setLstCheckBox(newList)
+                                }}>{day}</p>
                             </Col>
                         </>
                     );
@@ -122,15 +158,15 @@ const SetScheduleAalim = () => {
 
             {timeArray.map((time, colindex) => {
                 return (
-                    <Row className="py-2">
+                    <Row className="py-2" key={colindex}>
                         <h5 className="mx-5">{time}</h5>
                         {days.map((day, rowindex) => {
                             return (
-                                <Col>
-                                    <input
+                                <Col key={rowindex + 7 * colindex}>
+                                    <Input
                                         type="checkbox"
-                                        defaultChecked={
-                                      location.state.lstCheckBox[ rowindex + 7 * colindex]
+                                        checked={
+                                            lstCheckBox[ rowindex + 7 * colindex]
                                         }
                                         onClick={() => {
                                             location.state.lstCheckBox[
@@ -139,6 +175,20 @@ const SetScheduleAalim = () => {
                                                 !location.state.lstCheckBox[
                                                     rowindex + 7 * colindex
                                                 ];
+                                            lstCheckBox[
+                                                    rowindex + 7 * colindex
+                                                ] =
+                                                !lstCheckBox[
+                                                    rowindex + 7 * colindex
+                                                ]
+                                                    console.log(location.state.lstCheckBox[rowindex + 7 * colindex])
+                                                    const newList = [...lstCheckBox];
+                                                    newList[rowindex + 7 * colindex] =  lstCheckBox[
+                                                        rowindex + 7 * colindex
+                                                    ]
+                                                  
+                                            setLstCheckBox(newList)
+                                            
                                             let index = rowindex + 7 * colindex;
                                             let day,
                                                 time = "";

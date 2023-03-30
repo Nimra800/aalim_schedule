@@ -21,7 +21,12 @@ const Signup=() =>{
         )
         .then((response) => {
             if (response.data["Schedules"] == undefined) {
-                history.push("/main/clientdashboard");
+                history.push({
+                  pathname:"/main/clientdashboard",
+                  state : {
+                    data:response.data
+                  }
+                });
             } else if (response.data == "Not Exists") {
                 alert(response.data);
             } else if (response.data == "Error") {

@@ -6,6 +6,7 @@
 @import "../css/ViewProfile.css";
 @import "../css/Schedule.css";
 @import "../css/Client.css";
+@import "../css/Map.css";
 
 
 .btn:not(:disabled):not(.disabled){

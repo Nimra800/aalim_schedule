@@ -120,13 +120,34 @@ export const SearchClient = () => {
         'Sun'
     ]
 
+  
+
     //Api Call
     const handleSearch=(e)=>{
        
         e.preventDefault()
-        axios.get('http://192.168.43.218/AalimSchduler/api/Search/Search?fikkah='+location.state.fikkah+'&services='+location.state.service+'&time='+location.state.time+'&latlng='+location.state.latLng).then(response => {
+        axios.get('http://192.168.43.218/AalimSchduler/api/Search/Search?fikkah='+location.state.fikkah+'&services='+location.state.service+'&time='+location.state.time+'&latlng='+location.state.latLng+'&date='+'2023-03-28'+'&cid='+location.state.data.Id).then(response => {
           if(response.data!="Error"){
             console.log(response.data)
+    //    let list=[]
+    //  for(let i=0;i<response.data.length;i++){
+    //     console.log(response.data[i].Id)
+    //    let  val={
+    //         'Distance':response.data[i]['Distance'],
+    //         'Fikkah':response.data[i]['Fikkah'],
+    //         'Gender':response.data[i]['Gender'],
+    //         'Id':response.data[i].Id,
+    //         'Image':response.data[i]['Image'],
+    //         'Name':response.data[i]['Name'],
+    //         'PhoneNo':response.data[i]['PhoneNo'],
+    //         'Rating':response.data[i]['Rating'],
+    //         'Services':response.data[i]['Services'],
+    //         'rid':-1
+    //     }
+    //     list.push(val);
+       
+    //  }
+    // console.log(list)
          history.push(
           {
             pathname:'/main/SearchDetailsClient',
