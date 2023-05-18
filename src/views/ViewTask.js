@@ -6,19 +6,26 @@ import pandingtask from "../../src/assets/img/PandingTask.png";
 import completetask from "../../src/assets/img/CompleteTask.png";
 import download from "../../src/assets/img/dumpyicon.png";
 import Backbutton from "../../src/assets/img/Backbutton.png";
-import { useHistory } from "react-router-dom";
+import { Image } from "react-bootstrap";
+import { useHistory, useLocation } from "react-router-dom";
 export const ViewTask = () => {
   const history = useHistory()
+  const location =useLocation()
     return (
         <> <Navbar className="mb-3 bg" light>
-        <NavbarBrand href="/">
-        <button>
-                        <img
+        <NavbarBrand>
+        <Image  onClick={() => 
+                            history.push({
+                                pathname: "/main/AalimDashboard",
+                                state: {
+                                    data: location.state.data,
+                                },
+                            })}
                                 src={Backbutton}
                                 width={25}
                                 height={25}
-                            ></img>
-                        </button> 
+                            ></Image>
+        
             Tasks
         </NavbarBrand>
         <div>
@@ -50,7 +57,12 @@ export const ViewTask = () => {
     <Container className="container-center " >
     <Row>
                         <div className="mx-5">
-                            <Card className="card-design shadow" onClick={()=>history.push("/main/pendingtask")}>
+                            <Card className="card-design shadow" onClick={()=>history.push({
+                                pathname:"/main/pendingtask",
+                                state:{
+                                    data:location.state.data
+                                }
+                            })}>
                                 <div>
                                     <img
                                         src={pandingtask}
@@ -65,7 +77,12 @@ export const ViewTask = () => {
                         </div>
                         
                         <div className="mx-5">
-                            <Card className="card-design shadow" onClick={()=>history.push("/main/completetask")}>
+                            <Card className="card-design shadow" onClick={()=>history.push({
+                                pathname:"/main/completetask",
+                                state:{
+                                    data:location.state.data
+                                }
+                            })}>
                                 <div>
                                     <img
                                         src={completetask}

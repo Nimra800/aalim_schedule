@@ -13,7 +13,9 @@ import {
     DropdownToggle,
     Button,
     CardSubtitle,
+ 
 } from "reactstrap";
+
 
 
 
@@ -30,6 +32,7 @@ export const SearchDetailsClient = () => {
     const location = useLocation();
     const history = useHistory();
     const [id,setId]=useState()
+    
     const [search, setSearch] = useState(location.state.searchResult);
 
   
@@ -143,6 +146,7 @@ export const SearchDetailsClient = () => {
                     ></img>
                 </div>
             </Navbar>
+            <Row>
             {search.map((e, index) => {
                 return (
                     <Container className="container-center">
@@ -217,6 +221,8 @@ export const SearchDetailsClient = () => {
                     </Container>
                 );
             })}
+            </Row>
+           
         </>
     );
 };

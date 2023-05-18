@@ -4,3 +4,19 @@
     justify-content: center;
     width: 90%;
 }
+
+.cardDesign{
+    justify-content: center;
+    margin-left: 30%;
+}
+
+.card-design-schedule{
+    width: 65vh;
+    height: 65vh;
+    text-align: center;
+    background-color: white;
+    justify-content: center;
+    flex-direction: column;
+    border-radius:20px;
+    margin-bottom: 5vh;
+    }

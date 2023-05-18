@@ -15,8 +15,12 @@ import Notification from "../../src/assets/img/Notification1.png";
 import download from "../../src/assets/img/dumpyicon.png";
 import StarRatings from "react-star-ratings/build/star-ratings";
 import Backbutton from "../../src/assets/img/Backbutton.png";
+import { Image } from "react-bootstrap";
 import { useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 export const CompleteTask = () => {
+    const history=useHistory()
+    const location= useLocation()
     const [rating, setRating] = useState(2);
 
     const changeRating = (newRating, name) => {
@@ -26,14 +30,18 @@ export const CompleteTask = () => {
     return (
         <>
             <Navbar className="mb-3 bg" light>
-                <NavbarBrand href="/">
-                <button>
-                        <img
+                <NavbarBrand>
+                <Image  onClick={() => 
+                            history.push({
+                                pathname: "/main/ViewTask",
+                                state: {
+                                    data: location.state.data,
+                                },
+                            })}
                                 src={Backbutton}
                                 width={25}
                                 height={25}
-                            ></img>
-                        </button>
+                            ></Image>
                     CompleteTask</NavbarBrand>
                 <div>
                     <img src={Notification} width={20} height={20}></img>

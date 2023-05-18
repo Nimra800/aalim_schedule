@@ -14,18 +14,27 @@ export const ProfileAalim = () => {
     const location = useLocation()
     useEffect(()=>{
         console.log(location.state.data)
-       if(location.state.data.Service!=null){
-        location.state.data.Service.split(' ').map((e)=>{
-            if(e=='Nikkah'){
+       if(location.state.data.Services!=null){
+        location.state.data.Services.map((e)=>{
+            if(e.name=='Nikkah'){
                 location.state.nikkah=true
-            }if(e=='Dua'){
+                location.state.nikkahHadiya=e.hadiya
+            }if(e.name=='Dua'){
                 location.state.dua=true
-            }if(e=='Kul'){
+                location.state.duaHadiya=e.hadiya
+            }if(e.name=='Kul'){
                 location.state.kul=true
-            }if(e=='Ameen'){
+                location.state.kulHadiya=e.hadiya
+            }if(e.name=='Ameen'){
                 location.state.ameen=true
-            }if(e=='Janaza'){
+                location.state.ameenHadiya=e.hadiya
+            }if(e.name=='Janaza'){
                 location.state.janaza=true
+                location.state.janazaHadiya=e.hadiya
+            }if(e.name=='Nazrah'){
+                console.log('a')
+                location.state.nazra=true
+                location.state.nazraHadiya=e.hadiya
             }
             console.log(location.state.nikkah)
         })
@@ -106,7 +115,15 @@ export const ProfileAalim = () => {
                                 kul:location.state.kul,
                                 janaza:location.state.janaza,
                                 dua:location.state.dua,
-                                ameen:location.state.ameen
+                                ameen:location.state.ameen,
+                                nazra:location.state.nazra,
+                                nikkahHadiya:location.state.nikkahHadiya,
+                                kulHadiya:location.state.kulHadiya,
+                                janazaHadiya:location.state.janazaHadiya,
+                                duaHadiya:location.state.duaHadiya,
+                                ameenHadiya:location.state.ameenHadiya,
+                                nazraHadiya:location.state.nazraHadiya
+
 
                                }
                             })}>

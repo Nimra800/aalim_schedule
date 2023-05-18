@@ -15,14 +15,52 @@ import Notification from "../../src/assets/img/Notification1.png";
 import download from "../../src/assets/img/dumpyicon.png";
 import Backbutton from "../../src/assets/img/Backbutton.png";
 import StarRatings from "react-star-ratings/build/star-ratings";
+import { Image } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 export const Request = () => {
     const [rating, setRating] = useState(0);
     const location = useLocation()
     const [lstrequest,setListRequest]=useState([])
+    const history=useHistory()
+
+    const  handleAccept=(id)=>{
+        axios.get('http://192.168.43.218/AalimSchduler/api/request/acceptrequest?id='+id).then((response)=>{
+            if(response.data!="Error")
+            {
+                let newList = [...lstrequest];
+              for(let i=0;i<lstrequest.length;i++){
+                if(lstrequest[i].Id==id){
+                    delete newList[i]
+                }
+              }
+            setListRequest(newList);
+                alert('Request Accepted')
+            }else{
+                alert('Error')
+            }
+        })
+    }
+
+    const  handleReject=(id)=>{
+        axios.get('http://192.168.43.218/AalimSchduler/api/request/rejectrequest?id='+id).then((response)=>{
+            if(response.data!="Error")
+            {
+                let newList = [...lstrequest];
+              for(let i=0;i<lstrequest.length;i++){
+                if(lstrequest[i].Id==id){
+                    delete newList[i]
+                }
+              }
+            setListRequest(newList);
+                alert('Request Rejected')
+            }else{
+                alert('Error')
+            }
+        })
+    }
 
 
    useEffect(()=>{
@@ -38,14 +76,18 @@ export const Request = () => {
     return (
         <>
             <Navbar className="mb-3 bg" light>
-                <NavbarBrand href="/">
-                <button>
-                        <img
+                <NavbarBrand>
+                <Image  onClick={() => 
+                            history.push({
+                                pathname: "/main/AalimDashboard",
+                                state: {
+                                    data: location.state.data,
+                                },
+                            })}
                                 src={Backbutton}
                                 width={25}
                                 height={25}
-                            ></img>
-                        </button>
+                            ></Image>
                     Request</NavbarBrand>
                 <div>
                     <img src={Notification} width={20} height={20}></img>
@@ -67,11 +109,25 @@ export const Request = () => {
                     />
                 </div>
             </Navbar>
-           {lstrequest.map((e,index)=>{
+           <Row>
+
+           {
+           lstrequest.length==0? <>
+           <h1 className="mx-3">
+            No Request Found
+           </h1>
+           </> :
+           lstrequest.map((e,index)=>{
             
             return (
-                <Container className="container-center">
-                <Col>
+                lstrequest.length==0? <>
+                <h1 className="mx-3">
+                 No Request Found
+                </h1>
+                </> :
+                <Col className="sm-6">
+                   
+              
                     <Card className="request-card shadow">
                         <Row className="margin-bottom">
                             <CardTitle className="px-2">Client Name:</CardTitle>
@@ -116,15 +172,16 @@ export const Request = () => {
                             
 
                         <Row className="mr-5">
-                            <Button className="btn-accept">Accept</Button>
-                            <Button className="btn-reject">Reject</Button>
+                            <Button className="btn-accept" onClick={()=>handleAccept(e.Id)}>Accept</Button>
+                            <Button className="btn-reject" onClick={()=>handleReject(e.Id)}>Reject</Button>
                         </Row>
                         
                     </Card>
                 </Col>
-            </Container>
+          
             )
            })}
+           </Row>
         </>
     );
 };

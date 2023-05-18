@@ -103,7 +103,14 @@ export const AalimDashboard = () => {
 
                     <Row>
                         <div className="mx-5">
-                            <Card className="card-design shadow" onClick={()=>history.push("/main/viewtask")}>
+                            <Card className="card-design shadow" onClick={()=>history.push(
+                                {
+                                    pathname:"/main/viewtask",
+                                    state:{
+                                        data:location.state.data
+                                    }
+                                }
+                            )}>
                                 <div>
                                     <img
                                         src={task}

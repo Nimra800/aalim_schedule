@@ -24,7 +24,7 @@ const GoogleMap = (props) => {
             const response = await axios.get(
                 `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
                     address
-                )}&key=AIzaSyBSs9-6oQqOeG7FwY6-tCCEAggHFKuVTds`
+                )}&key=AIzaSyAbzBltUXbWeB-lKisjFSdUCQHJyksQs1Y`
             );
             const { lat, lng } = response.data.results[0].geometry.location;
             
@@ -49,6 +49,7 @@ const GoogleMap = (props) => {
                 },
             });
         } else if (location.state.page == "searchClient") {
+            console.log(location.state.Location)
             history.push({
                 pathname: "/main/SearchClient",
                 state: {
@@ -57,12 +58,15 @@ const GoogleMap = (props) => {
                     latLng: latlng,
                     fikkah: location.state.fikkah,
                     day: location.state.day,
-                    time: location.state.time,
+                    starttime: location.state.starttime,
+                    endtime: location.state.endtime,
                     service: location.state.service,
+                    daterange:location.state.daterange,
+                    date:location.state.date
                 },
             });
         } else {
-            console.log(location.state.data);
+            console.log(location.state.data.Location);
             history.push({
                 pathname: "/main/SetProfileAalim",
                 state: {
@@ -108,7 +112,7 @@ const GoogleMap = (props) => {
                             position.coords.longitude.toString();
 
                         GlobalGoogleMap.someProp = results[0].formatted_address;
-                        Object.freeze(GlobalGoogleMap);
+                        //Object.freeze(GlobalGoogleMap);
                     } else if (
                         status === "OK" &&
                         location.state.page == "searchClient"
@@ -145,17 +149,21 @@ const GoogleMap = (props) => {
             (results, status) => {
                 if (status === "OK" && location.state.page != "searchClient") {
                     setAddress(results[0].formatted_address);
-                    GlobalGoogleMap.someProp = results[0].formatted_address;
-                    Object.freeze(GlobalGoogleMap);
+                    
+                    // Object.freeze(GlobalGoogleMap);
                     location.state.data.Location = results[0].formatted_address;
+                    console.log(location.state.data.Location)
                     location.state.data.LatLng =
                         newLat.toString() + "," + newLng.toString();
+                     //   GlobalGoogleMap.someProp = results[0].formatted_address;
                 } else if (
                     status === "OK" &&
                     location.state.page == "searchClient"
                 ) {
+                    
                     setAddress(results[0].formatted_address);
                     location.state.Location = results[0].formatted_address;
+                    console.log(location.state.Location)
                     setlatlng(newLat.toString() + "," + newLng.toString());
                     GlobalGoogleMap.someProp = results[0].formatted_address;
                 } else {
@@ -211,5 +219,5 @@ const GoogleMap = (props) => {
 };
 
 export default GoogleApiWrapper({
-    apiKey: "AIzaSyBSs9-6oQqOeG7FwY6-tCCEAggHFKuVTds",
+    apiKey: "AIzaSyAbzBltUXbWeB-lKisjFSdUCQHJyksQs1Y",
 })(GoogleMap);

@@ -7,6 +7,7 @@ import Avatar from "react-avatar";
 import {
     Button,
     Card,
+    CardSubtitle,
     CardTitle,
     Col,
     Container,
@@ -42,7 +43,14 @@ export const SetProfileAalim = () => {
     const [kul, setKul] = useState(false);
     const [ameen, setAmeen] = useState(false);
     const [dua, setDua] = useState(false);
+    const [nazra, setnazra]= useState(false);
 
+    const [nikkahHadiya, setNikkahHadiya] = useState("");
+    const [janazaHadiya, setJanazaHadiya] = useState("");
+    const [kulHadiya, setKulHadiya] = useState("");
+    const [ameenHadiya, setAmeenHadiya] = useState("");
+    const [duaHadiya, setDuaHadiya] = useState("");
+    const [nazraHadiya, setNazraHadiya]= useState("");
    
 
     //change image from directory
@@ -94,6 +102,11 @@ export const SetProfileAalim = () => {
         location.state.kul = !kul;
         setKul(!kul);
     };
+
+    const handleNazra = (e) => {
+        location.state.nazra = !nazra;
+        setKul(!nazra);
+    };
     const avatarRef = useRef(null);
 
     const handleClick = () => {
@@ -113,6 +126,24 @@ export const SetProfileAalim = () => {
             location.state.data.Service += "Kul ";
         }  if (location.state.janaza) {
             location.state.data.Service += "Janaza ";
+        } if (location.state.nazra) {
+            location.state.data.Service += "Nazrah ";
+        }
+
+        location.state.data.hadiya = "";
+        if (location.state.nikkah) {
+            location.state.data.hadiya += location.state.nikkahHadiya+" " ;
+        }  if (location.state.dua) {
+            location.state.data.hadiya += location.state.duaHadiya+" ";
+        }  if (location.state.ameen) {
+            location.state.data.hadiya += location.state.ameenHadiya+" ";
+        }  if (location.state.kul) {
+            location.state.data.hadiya += location.state.kulHadiya+" ";
+        }  if (location.state.janaza) {
+            location.state.data.hadiya += location.state.janazaHadiya+" ";
+        }
+        if (location.state.nazra) {
+            location.state.data.hadiya += location.state.nazraHadiya+" ";
         }
         const data = {
             Id: location.state.data.Id,
@@ -124,7 +155,6 @@ export const SetProfileAalim = () => {
             Distance: location.state.data.Distance,
             Gender: location.state.data.Gender,
             Location: location.state.data.Location,
-            Service: location.state.data.Service,
             Email: location.state.data.Email,
             Image: "",
             Rating: location.state.data.Rating==null?0:location.state.data.Rating,
@@ -134,9 +164,13 @@ export const SetProfileAalim = () => {
             console.log(location.state.data.Image)
             location.state.image=location.state.data.Image
         }
+        console.log(location.state.data.Service)
+        console.log(location.state.data.hadiya)
         const formData = new FormData();
         formData.append("image", location.state.image);
         formData.append("data", JSON.stringify(data));
+        formData.append("service", location.state.data.Service);
+        formData.append("hadia", location.state.data.hadiya);
         axios
             .post(
                 "http://192.168.43.218/AalimSchduler/api/AalimDetails/setProfile",
@@ -239,7 +273,10 @@ export const SetProfileAalim = () => {
                             onChange={handleImageSelection}
                         />
                     </div>
-                    <Row className="my-2 mx-2">
+                
+    
+               
+                  <Row className="my-2 mx-2">
                         <Col>
                             <div>
                                 <Input
@@ -254,6 +291,7 @@ export const SetProfileAalim = () => {
                             </div>
                         </Col>
                     </Row>
+                 
 
                     <Row className="my-2 mx-2">
                         <Col>
@@ -491,7 +529,133 @@ export const SetProfileAalim = () => {
                                 Ameen
                             </label>
                         </div>
+                        <div className="radio-profile">
+                            <label>
+                                <Input
+                                    type="checkbox"
+                                    checked={
+                                       location.state.nazra
+                                    }
+                                    onChange={handleNazra}
+                                />
+                                Nazra
+                            </label>
+                        </div>
                     </div>
+                    {
+                         location.state.ameen &&(
+                            <Row className="my-2 mx-2">
+                            <Col>
+                                <div>
+                                    <Input
+                                        placeholder="Ameen"
+                                        value={location.state.ameenHadiya}
+                                        onChange={(e) => {
+                                            location.state.ameenHadiya =
+                                                e.target.value;
+                                            setAmeenHadiya(e.target.value);
+                                        }}
+                                    ></Input>
+                                </div>
+                            </Col>
+                        </Row>
+                         )
+                    }
+                     {
+                         location.state.nikkah &&(
+                            <Row className="my-2 mx-2">
+                            <Col>
+                                <div>
+                                    <Input
+                                        placeholder="Nikkah"
+                                        value={location.state.nikkahHadiya}
+                                        onChange={(e) => {
+                                            location.state.nikkahHadiya =
+                                                e.target.value;
+                                            setNikkahHadiya(e.target.value);
+                                        }}
+                                    ></Input>
+                                </div>
+                            </Col>
+                        </Row>
+                         )
+                    }
+                    {
+                         location.state.kul &&(
+                            <Row className="my-2 mx-2">
+                            <Col>
+                                <div>
+                                    <Input
+                                        placeholder="kul"
+                                        value={location.state.kulHadiya}
+                                        onChange={(e) => {
+                                            location.state.kulHadiya =
+                                                e.target.value;
+                                            setKulHadiya(e.target.value);
+                                        }}
+                                    ></Input>
+                                </div>
+                            </Col>
+                        </Row>
+                         )
+                    }
+                    {
+                         location.state.janaza &&(
+                            <Row className="my-2 mx-2">
+                            <Col>
+                                <div>
+                                    <Input
+                                        placeholder="janaza"
+                                        value={location.state.janazaHadiya}
+                                        onChange={(e) => {
+                                            location.state.janazaHadiya =
+                                                e.target.value;
+                                            setJanazaHadiya(e.target.value);
+                                        }}
+                                    ></Input>
+                                </div>
+                            </Col>
+                        </Row>
+                         )
+                    }
+                    {
+                         location.state.dua &&(
+                            <Row className="my-2 mx-2">
+                            <Col>
+                                <div>
+                                    <Input
+                                        placeholder="Dua"
+                                        value={location.state.duaHadiya}
+                                        onChange={(e) => {
+                                            location.state.duaHadiya =
+                                                e.target.value;
+                                            setDuaHadiya(e.target.value);
+                                        }}
+                                    ></Input>
+                                </div>
+                            </Col>
+                        </Row>
+                         )
+                    }
+                     {
+                         location.state.nazra &&(
+                            <Row className="my-2 mx-2">
+                            <Col>
+                                <div>
+                                    <Input
+                                        placeholder="Nazra"
+                                        value={location.state.nazraHadiya}
+                                        onChange={(e) => {
+                                            location.state.nazraHadiya =
+                                                e.target.value;
+                                            setNazraHadiya(e.target.value);
+                                        }}
+                                    ></Input>
+                                </div>
+                            </Col>
+                        </Row>
+                         )
+                    }
                     <Row className="my-2 mx-2">
                         <Col>
                             <Button

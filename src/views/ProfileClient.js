@@ -55,7 +55,7 @@ export const ProfileClient = () => {
     </Navbar>
     <Container className="container-center">
     <Row>
-                        <div className="mx-1">
+                        <div className="mx-5">
                             <Card className="card-design shadow" onClick={()=>history.push(
                                 {
                                     pathname:'/main/ViewProfileClient',

@@ -74,13 +74,13 @@ export const ViewProfileAalim = () => {
                        </div>
                        <div className="profile-card-peronal-information">
                     {
-                     location.state.data.Service==null? <></>:   location.state.data.Service.split(' ').map((e,index)=>(
+                     location.state.data.Services==null? <></>:   location.state.data.Services.map((e,index)=>(
                            <>
                         <Col>
                         <Row>
                            {
                             
-                          index!= location.state.data.Service.toString().split(' ').length-1?"* "+e:""
+                          index!= location.state.data.Services.length?"* "+e.name:""
                            }
                         </Row>
                         </Col>

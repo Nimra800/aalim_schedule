@@ -1,12 +1,14 @@
 
 
 .request-card{
-width: 75vh;
-height: 65vh; 
+width: 65vh;
+height: 60vh; 
 text-align: start;
 border-radius: 20px;
 padding-left: 30px;
+
 padding-top: 10px;
+margin-left: 2vh;
 }
 
 .margin-bottom{
