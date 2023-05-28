@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, NavbarBrand, Container,Row,Card,CardTitle } from "reactstrap";
 import Logout from "../../src/assets/img/Logout1.png";
 import Notification from "../../src/assets/img/Notification1.png";
-import pandingtask from "../../src/assets/img/PandingTask.png";
+import pendingtask from "../../src/assets/img/pendingTask.png";
 import completetask from "../../src/assets/img/CompleteTask.png";
 import download from "../../src/assets/img/dumpyicon.png";
 import Backbutton from "../../src/assets/img/Backbutton.png";
@@ -36,7 +36,9 @@ export const ViewTask = () => {
                 width={20}
                 height={20}
             ></img>
-            <img
+            <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                 src={Logout}
                 width={20}
                 height={20}
@@ -65,7 +67,7 @@ export const ViewTask = () => {
                             })}>
                                 <div>
                                     <img
-                                        src={pandingtask}
+                                        src={pendingtask}
                                         height={100}
                                         width={100}
                                     ></img>

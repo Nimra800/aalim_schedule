@@ -40,7 +40,9 @@ export const AalimDashboard = () => {
                                 width={20}
                                 height={20}
                             ></img>
-                            <img
+                            <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                                 src={Logout}
                                 width={20}
                                 height={20}
@@ -58,7 +60,7 @@ export const AalimDashboard = () => {
                     <Container className="container-center">
                     
                     <Row>
-                        
+                           
                         <div className="mx-5">
                             <Card className="card-design shadow" onClick={()=>history.push(
                                {

@@ -28,6 +28,16 @@
             margin: 5vh;
             padding: 2vh;
             }
+
+            .client-task-card-design{
+                width: 75vh;
+                text-align: center;
+                background-color: white;
+                justify-content: center;  
+                border-radius:20px;
+                margin: 5vh;
+                padding: 2vh;
+                }
     
 /* .star{
     padding-bottom: 2px;

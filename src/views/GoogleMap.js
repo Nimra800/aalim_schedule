@@ -24,7 +24,7 @@ const GoogleMap = (props) => {
             const response = await axios.get(
                 `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
                     address
-                )}&key=AIzaSyAbzBltUXbWeB-lKisjFSdUCQHJyksQs1Y`
+                )}&key=AIzaSyC1ZTBoBwG7ZFItcUi23Qjrpf5aswj0nWA`
             );
             const { lat, lng } = response.data.results[0].geometry.location;
             
@@ -219,5 +219,5 @@ const GoogleMap = (props) => {
 };
 
 export default GoogleApiWrapper({
-    apiKey: "AIzaSyAbzBltUXbWeB-lKisjFSdUCQHJyksQs1Y",
+    apiKey: "AIzaSyC1ZTBoBwG7ZFItcUi23Qjrpf5aswj0nWA",
 })(GoogleMap);

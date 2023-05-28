@@ -11,23 +11,48 @@ import {
 
 import Notification from "../../src/assets/img/Notification1.png";
 import Logout from "../../src/assets/img/Logout1.png";
-import profile from "../../src/assets/img/profile1.png";
+import FeedBackClient from "../../src/assets/img/FeedBackclient.png";
+import CompletedTaskClient from "../../src/assets/img/completeTaskClient.jpg";
+import pendingTaskClient from "../../src/assets/img/pendingTaskClient.jpg";
 import download from "../../src/assets/img/dumpyicon.png";
 import SearchAalim from "../../src/assets/img/SearchAalim.png";
 import Backbutton from "../../src/assets/img/Backbutton.png";
 import { useHistory, useLocation } from "react-router-dom";
-export const ClientDashboard = () => {
+import { useEffect } from "react";
+import axios from "axios";
+import { Image } from "react-bootstrap";
+import { useState } from "react";
+export const ClientTask = () => {
   //Navigation
   const history = useHistory()
   const location = useLocation()
+  const [lstClientTask,setlstClientTask] = useState()
+
+  useEffect(()=>{
+    axios.get("http://192.168.244.66/AalimSchduler/api/task/getClientTasks?id="+location.state.data.Id).then((response)=>{
+           if(response.data!='Error'){
+            console.log(response.data)
+            setlstClientTask(response.data)
+           }
+        })
+   },[])
+
     return (
         <>
-            {/* <Container className="container"> */}
-                {/* <Col> */}
                     <Navbar className="mb-3 bg" light>
                         <NavbarBrand>
-                       
-                            ClientDashboard
+                        <Image  onClick={() => 
+                            history.push({
+                                pathname: "/main/ClientDashboard",
+                                state: {
+                                    data: location.state.data,
+                                },
+                            })}
+                                src={Backbutton}
+                                width={25}
+                                height={25}
+                            ></Image>
+                            Task
                         </NavbarBrand>
                         <div>
                             
@@ -53,76 +78,83 @@ export const ClientDashboard = () => {
                                 }}></img>
                         </div>
                     </Navbar>
+
                     <Container className="container-center">
-                    <Row>
-                        <div className="mx-5">
+<Row>
+<div className="mx-5">
                             <Card className="card-design shadow" onClick={()=>history.push(
                                 {
-                                    pathname:"/main/ProfileClient",
+                                    pathname:"/main/PendingTaskClient",
                                     state:{
-                                        data:location.state.data
+                                        data:location.state.data,
+                                        lstClientTask:lstClientTask
                                     }
 
                                 }
                             )}>
                                 <div>
                                     <img
-                                        src={profile}
+                                        src={pendingTaskClient}
                                         height={100}
                                         width={100}
                                     ></img>
                                 </div>
                                 <CardTitle tag="h5" className="my-2">
-                                    Profile
-                                </CardTitle>
-                            </Card>
-                        </div>
-                        <div className="mx-5">
-                            <Card className="card-design shadow" onClick={()=>history.push(
-                                
-                               {pathname: "/main/SearchClient",
-                            state:{
-                                data:location.state.data
-                            }}
-                                
-                                )}>
-                                <div>
-                                    <img
-                                        src={SearchAalim}
-                                        height={100}
-                                        width={100}
-                                    ></img>
-                                </div>
-                                <CardTitle tag="h5" className="my-2">
-                                    Search Aalim
+                                    Pending Task
                                 </CardTitle>
                             </Card>
                         </div>
 
                         <div className="mx-5">
                             <Card className="card-design shadow" onClick={()=>history.push(
-                               {pathname: "/main/ClientTask",
-                            state:{
-                                data:location.state.data
-                            }}
-                                
-                                )}>
+                                {
+                                    pathname:"/main/FeedBackClient",
+                                    state:{
+                                        data:location.state.data,
+                                        lstClientTask:lstClientTask
+                                    }
+
+                                }
+                            )}>
                                 <div>
                                     <img
-                                        src={SearchAalim}
+                                        src={FeedBackClient}
                                         height={100}
                                         width={100}
                                     ></img>
                                 </div>
                                 <CardTitle tag="h5" className="my-2">
-                                    Task
+                                    FeedBack 
                                 </CardTitle>
                             </Card>
                         </div>
-                        
-                    </Row>
-                    </Container>
-                {/* </Col> */}
+
+                        <div className="mx-5">
+                            <Card className="card-design shadow" onClick={()=>history.push(
+                                {
+                                    pathname:"/main/CompletedTaskClient",
+                                    state:{
+                                        data:location.state.data,
+                                        lstClientTask:lstClientTask
+                                    }
+
+                                }
+                            )}>
+                                <div>
+                                    <img
+                                        src={CompletedTaskClient}
+                                        height={100}
+                                        width={100}
+                                    ></img>
+                                </div>
+                                <CardTitle tag="h5" className="my-2">
+                                    Completed Task
+                                </CardTitle>
+                            </Card>
+                        </div>
+</Row>
+                        </Container>
+               
         </>
     );
 };

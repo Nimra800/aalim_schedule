@@ -43,7 +43,7 @@ export const ViewProfileClient = () => {
                     <Card className="profile-card-design shadow">
                     <div className="px-4">
                           <Avatar
-                                   src={"http://192.168.43.218/AalimSchduler/Content/Uploads/"+location.state.data.Image}
+                                   src={"http://192.168.244.66/AalimSchduler/Content/Uploads/"+location.state.data.Image}
                                    size="100"
                                    round={true}
                                />
@@ -55,7 +55,7 @@ export const ViewProfileClient = () => {
                             }
                         </h2>
                         <StarRatings
-                                rating={location.state.data.Rating}
+                                rating={location.state.data.Rating??0}
                                 starRatedColor="yellow"
                                 numberOfStars={5}
                                 name="rating"

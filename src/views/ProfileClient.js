@@ -35,7 +35,9 @@ export const ProfileClient = () => {
                 width={20}
                 height={20}
             ></img>
-            <img
+            <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                 src={Logout}
                 width={20}
                 height={20}

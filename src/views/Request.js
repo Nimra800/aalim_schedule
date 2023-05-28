@@ -27,7 +27,8 @@ export const Request = () => {
     const history=useHistory()
 
     const  handleAccept=(id)=>{
-        axios.get('http://192.168.43.218/AalimSchduler/api/request/acceptrequest?id='+id).then((response)=>{
+        console.log(id)
+        axios.get('http://192.168.244.66/AalimSchduler/api/request/acceptrequest?id='+id).then((response)=>{
             if(response.data!="Error")
             {
                 let newList = [...lstrequest];
@@ -45,7 +46,7 @@ export const Request = () => {
     }
 
     const  handleReject=(id)=>{
-        axios.get('http://192.168.43.218/AalimSchduler/api/request/rejectrequest?id='+id).then((response)=>{
+        axios.get('http://192.168.244.66/AalimSchduler/api/request/rejectrequest?id='+id).then((response)=>{
             if(response.data!="Error")
             {
                 let newList = [...lstrequest];
@@ -64,7 +65,7 @@ export const Request = () => {
 
 
    useEffect(()=>{
-    axios.get("http://192.168.43.218/AalimSchduler/api/request/requestDetails?aalimId="+
+    axios.get("http://192.168.244.66/AalimSchduler/api/request/requestDetails?aalimId="+
         location.state.data.Id).then((response)=>{
             console.log(response.data)
             let newList = [...lstrequest];
@@ -91,7 +92,9 @@ export const Request = () => {
                     Request</NavbarBrand>
                 <div>
                     <img src={Notification} width={20} height={20}></img>
-                    <img
+                    <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                         src={Logout}
                         width={20}
                         height={20}

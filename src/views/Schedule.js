@@ -19,7 +19,7 @@ export const Schedule = () => {
   useEffect(async () => {
     await axios
         .get(
-            "http://192.168.43.218/AalimSchduler/api/schedule/getschedule?id=" +
+            "http://192.168.244.66/AalimSchduler/api/schedule/getschedule?id=" +
                 location.state.data.Id
         )
         .then((response) => {
@@ -77,7 +77,9 @@ for (let i = 0; i < 168; i++) {
                 width={20}
                 height={20}
             ></img>
-            <img
+            <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                 src={Logout}
                 width={20}
                 height={20}

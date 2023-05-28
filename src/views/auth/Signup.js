@@ -17,7 +17,7 @@ const Signup=() =>{
 
     axios
         .post(
-            "http://192.168.43.218/AalimSchduler/api/register/signup",data
+            "http://192.168.244.66/AalimSchduler/api/register/signup",data
         )
         .then((response) => {
             if (response.data["Schedules"] == undefined) {

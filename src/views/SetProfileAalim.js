@@ -30,14 +30,14 @@ export const SetProfileAalim = () => {
     const history = useHistory();
     const location = useLocation();
     const message = "";
-    const [isDropdownOpen, setDropDownOpen] = useState(false);
-    const [selectedFikkahValue, setSelectedFikkahValue] = useState("");
+    
+   
     const [selectedImage, setSelectedImage] = useState(null);
     const [name, setName] = useState("");
     const [cnic, setCnic] = useState("");
     const [phoneno, setPhoneno] = useState("");
     const [distance, setDistance] = useState("");
-    const [gender, setGender] = useState(false);
+    
     const [nikkah, setNikkah] = useState(false);
     const [janaza, setJanaza] = useState(false);
     const [kul, setKul] = useState(false);
@@ -51,13 +51,13 @@ export const SetProfileAalim = () => {
     const [ameenHadiya, setAmeenHadiya] = useState("");
     const [duaHadiya, setDuaHadiya] = useState("");
     const [nazraHadiya, setNazraHadiya]= useState("");
-   
 
-    //change image from directory
-    const handleImageSelection = (event) => {
-        location.state.image = event.target.files[0];
-        setSelectedImage(event.target.files[0]);
-    };
+    //  Fikkah Dropdown Code Start
+    //
+    //
+    const [isDropdownOpen, setDropDownOpen] = useState(false);
+    const [selectedFikkahValue, setSelectedFikkahValue] = useState("");
+    let lstFikkah=["Hanfia","Jafari","Maliki","Hanbali","Zaidiyyah", "Ibadiyyah","Zahiriyah"]
 
     //dropdown open/close
     function toggle() {
@@ -69,12 +69,28 @@ export const SetProfileAalim = () => {
         location.state.data.Fikkah = fikkah;
         setSelectedFikkahValue(fikkah);
     }
+    //
+    //
+    //  Fikkah Dropdown Code Close
+   console.log(location.state.data)
 
+    //change image from directory
+    const handleImageSelection = (event) => {
+        location.state.image = event.target.files[0];
+        setSelectedImage(event.target.files[0]);
+    };
+
+
+    //Gender RadioButton Code Start
+    //
     //set Gender
+    const [gender, setGender] = useState(false);
     const handleGender = (e) => {
         location.state.data.Gender = e.target.value;
         setGender(e.target.value);
     };
+    //Gender RadioButton Code End
+  
 
     //setNikkah
     const handleNikkah = (e) => {
@@ -173,7 +189,7 @@ export const SetProfileAalim = () => {
         formData.append("hadia", location.state.data.hadiya);
         axios
             .post(
-                "http://192.168.43.218/AalimSchduler/api/AalimDetails/setProfile",
+                "http://192.168.244.66/AalimSchduler/api/AalimDetails/setProfile",
                 formData,
                 {
                     headers: {
@@ -211,7 +227,9 @@ export const SetProfileAalim = () => {
                     Set Profile</NavbarBrand>
                 <div>
                     <img src={Notification} width={20} height={20}></img>
-                    <img
+                    <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                         src={Logout}
                         width={20}
                         height={20}
@@ -256,7 +274,7 @@ export const SetProfileAalim = () => {
                                 <Avatar
                                     onClick={handleClick}
                                     src={
-                                        "http://192.168.43.218/AalimSchduler/Content/Uploads/" +
+                                        "http://192.168.244.66/AalimSchduler/Content/Uploads/" +
                                         location.state.data.Image
                                     }
                                     size="100"
@@ -323,6 +341,8 @@ export const SetProfileAalim = () => {
                             </div>
                         </Col>
                     </Row>
+
+                    {/* Fikkah DropDown Code Start */}
                     <Row className="my-2 mx-2">
                         <Col>
                             <div>
@@ -333,69 +353,30 @@ export const SetProfileAalim = () => {
                                     <DropdownToggle caret>
                                         {location.state.data.Fikkah
                                             ? location.state.data.Fikkah
-                                            : "Select an option"}
+                                            : "Select an Fikkah"}
                                     </DropdownToggle>
+                                   
                                     <DropdownMenu>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange("Hanfia")
-                                            }
-                                        >
-                                            Hanfia
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange("Jafari")
-                                            }
-                                        >
-                                            Jafari
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange("Maliki")
-                                            }
-                                        >
-                                            Maliki
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange("Hanbali")
-                                            }
-                                        >
-                                            Hanbali
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange(
-                                                    "Zaidiyyah"
-                                                )
-                                            }
-                                        >
-                                            Zaidiyyah
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange(
-                                                    "Ibadiyyah"
-                                                )
-                                            }
-                                        >
-                                            Ibadiyyah
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange(
-                                                    "Zahiriyah"
-                                                )
-                                            }
-                                        >
-                                            Zahiriyah
-                                        </DropdownItem>
+                                     {
+                                        lstFikkah.map((value,index)=>{
+                                            return (
+                                                <DropdownItem
+                                                onClick={() =>
+                                                    DropwDownValueChange(value)
+                                                }
+                                            >
+                                                {value}
+                                            </DropdownItem>
+                                            )
+                                        })
+                                     }
+                                        
                                     </DropdownMenu>
                                 </Dropdown>
                             </div>
                         </Col>
                     </Row>
+                      {/* Fikkah DropDown Code End */}
                     <Row className="my-2 mx-2">
                         <Col>
                             <div>
@@ -414,6 +395,9 @@ export const SetProfileAalim = () => {
                     <div className="text-profile">
                         <h5>Gender</h5>
                     </div>
+                    {/* Gender Code Start */}
+
+
                     <Row className="radio-profile">
                         <fieldset>
                             <input
@@ -436,6 +420,7 @@ export const SetProfileAalim = () => {
                             Female
                         </fieldset>
                     </Row>
+                    {/* Gender Code Close */}
                     <Row className="my-2 mx-2">
                         <Col>
                             <Button

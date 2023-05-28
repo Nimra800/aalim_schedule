@@ -31,7 +31,7 @@ const ViewScheduleAalim = () => {
   let [schedule, SetSchedule] = useState([location.state.data.Schedules]);
 
   useEffect(async()=>{
-   await axios.get('http://192.168.43.218/AalimSchduler/api/schedule/getschedule?id='+location.state.data.Id).then(
+   await axios.get('http://192.168.244.66/AalimSchduler/api/schedule/getschedule?id='+location.state.data.Id).then(
     (response)=>{
     
       SetSchedule(response.data)
@@ -59,7 +59,9 @@ const ViewScheduleAalim = () => {
                   View Schedule</NavbarBrand>
                 <div>
                     <img src={Notification} width={20} height={20}></img>
-                    <img
+                    <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                         src={Logout}
                         width={20}
                         height={20}
@@ -169,7 +171,7 @@ export default ViewScheduleAalim;
 //   let [schedule, SetSchedule] = useState([location.state.data.Schedules]);
 
 //   useEffect(async()=>{
-//    await axios.get('http://192.168.43.218/AalimSchduler/api/schedule/getschedule?id='+location.state.data.Id).then(
+//    await axios.get('http://192.168.244.66/AalimSchduler/api/schedule/getschedule?id='+location.state.data.Id).then(
 //     (response)=>{
     
 //       SetSchedule(response.data)

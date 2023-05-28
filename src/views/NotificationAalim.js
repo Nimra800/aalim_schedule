@@ -16,8 +16,10 @@ import download from "../../src/assets/img/dumpyicon.png";
 import Backbutton from "../../src/assets/img/Backbutton.png";
 import StarRatings from "react-star-ratings/build/star-ratings";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 export const NotificationAalim = () => {
     const [rating, setRating] = useState(2);
+    const history=useHistory()
 
     const changeRating = (newRating, name) => {
         setRating(newRating);
@@ -37,7 +39,9 @@ export const NotificationAalim = () => {
                     Notification Aalim</NavbarBrand>
                 <div>
                     <img src={Notification} width={20} height={20}></img>
-                    <img
+                    <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                         src={Logout}
                         width={20}
                         height={20}

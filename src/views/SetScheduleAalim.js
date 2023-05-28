@@ -94,7 +94,7 @@ const SetScheduleAalim = () => {
             console.log(data)
             axios
                 .post(
-                    "http://192.168.43.218/AalimSchduler/api/schedule/addschedule",
+                    "http://192.168.244.66/AalimSchduler/api/schedule/addschedule",
                     data
                 )
                 .then((response) => {
@@ -117,7 +117,7 @@ const SetScheduleAalim = () => {
             console.log(data)
             axios
                 .post(
-                    "http://192.168.43.218/AalimSchduler/api/schedule/addschedule",
+                    "http://192.168.244.66/AalimSchduler/api/schedule/addschedule",
                     data
                 )
                 .then((response) => {
@@ -200,7 +200,9 @@ const SetScheduleAalim = () => {
                 </NavbarBrand>
                 <div>
                     <img src={Notification} width={20} height={20}></img>
-                    <img
+                    <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                         src={Logout}
                         width={20}
                         height={20}
@@ -431,7 +433,7 @@ export default SetScheduleAalim;
 //             console.log(location.state.data.Schedules);
 //             axios
 //                 .post(
-//                     "http://192.168.43.218/AalimSchduler/api/schedule/addschedule",
+//                     "http://192.168.244.66/AalimSchduler/api/schedule/addschedule",
 //                     location.state.data.Schedules
 //                 )
 //                 .then((response) => {

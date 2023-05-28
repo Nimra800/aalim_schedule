@@ -23,7 +23,10 @@ import { SearchClient  } from '../views/SearchClient';
 import { ProfileClient } from '../views/ProfileClient';
 import {SearchDetailsClient} from '../views/SearchDetailsClient';
 import {ViewProfileClient} from '../views/ViewProfileClient';
-
+import {ClientTask} from '../views/ClientTask';
+import {FeedBackClient} from'../views/FeedBackClient';
+import {PendingTaskClient} from'../views/PendingTaskClient';
+import {CompletedTaskClient} from '../views/CompletedTaskClient';
 let routes = [
 	{
 		path: '/auth/signin',
@@ -81,7 +84,7 @@ let routes = [
 		path: '/main/Schedule',
 		component: Schedule,
 		layout: 'main',
-    },
+    },	
 	{
 		path: '/main/ViewProfileAalim',
 		component: ViewProfileAalim,
@@ -153,7 +156,28 @@ let routes = [
 		path: '/main/ViewProfileClient',
 		component: ViewProfileClient,
 		layout: 'main',
+    },
+	{
+		path: '/main/ClientTask',
+		component: ClientTask,
+		layout: 'main',
+    },
+	{
+		path: '/main/FeedBackClient',
+		component: FeedBackClient,
+		layout: 'main',
+    },
+	{
+		path: '/main/PendingTaskClient',
+		component: PendingTaskClient,
+		layout: 'main',
+    },
+	{
+		path: '/main/CompletedTaskClient',
+		component: CompletedTaskClient,
+		layout: 'main',
     }
+
 
 
 

@@ -47,7 +47,7 @@ export const ViewProfileAalim = () => {
                     <Card className="profile-card-design shadow">
                     <div className="px-4">
                           <Avatar
-                                   src={"http://192.168.43.218/AalimSchduler/Content/Uploads/"+location.state.data.Image}
+                                   src={"http://192.168.244.66/AalimSchduler/Content/Uploads/"+location.state.data.Image}
                                    size="100"
                                    round={true}
                                />

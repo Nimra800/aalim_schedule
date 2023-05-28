@@ -24,25 +24,18 @@ export const PendingTask=()=> {
 
 
     const  handleComplete=(id)=>{
-        axios.get('http://192.168.43.218/AalimSchduler/api/task/completependingtask?id='+id).then((response)=>{
-            if(response.data!="Error")
-            {
-                let newList = [...lstpendingtask];
-              for(let i=0;i<lstpendingtask.length;i++){
-                if(lstpendingtask[i].Id==id){
-                    delete newList[i]
-                }
-              }
-            setListPendingTask(newList);
-                alert('Task Completed')
-            }else{
-                alert('Error')
+        history.push({
+            pathname:'/main/RatingAalim',
+            state:{
+                taskId:id,
+                data:location.state.data
             }
         })
+       
     }
 
     useEffect(()=>{
-        axios.get("http://192.168.43.218/AalimSchduler/api/task/getpendingtaskdetails?aalimId="+
+        axios.get("http://192.168.244.66/AalimSchduler/api/task/getpendingtaskdetails?aalimId="+
             location.state.data.Id).then((response)=>{
                 console.log(response.data)
                 let newList = [...lstpendingtask];
@@ -76,7 +69,9 @@ export const PendingTask=()=> {
                 width={20}
                 height={20}
             ></img>
-            <img
+            <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                 src={Logout}
                 width={20}
                 height={20}

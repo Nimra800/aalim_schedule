@@ -195,14 +195,16 @@ export const SearchClient = () => {
         console.log(EndDate);
         axios
         .get(
-            "http://192.168.43.218/AalimSchduler/api/Search/SearchNazrah?fikkah=" +
+            "http://192.168.244.66/AalimSchduler/api/Search/SearchNazrah?fikkah=" +
                 location.state.fikkah +
                 "&services=" +
                 location.state.service +
-                "&time=" +
-                location.state.time +
+                "&starttime=" +
+                location.state.starttime +
+                "&endtime=" +
+                location.state.endtime +
                 "&latlng=" +
-                location.state.latLng +
+                location.state.latLng  +
                 "&startdate=" +
                 StartDate +
                 "&enddate=" +
@@ -232,6 +234,7 @@ export const SearchClient = () => {
 
                  }
                 console.log(list)
+               
                 history.push({
                     pathname: "/main/SearchDetailsClient",
                     state: {
@@ -240,7 +243,11 @@ export const SearchClient = () => {
                         Location: location.state.Location,
                         fikkah: location.state.fikkah,
                         day: location.state.day,
-                        time: location.state.time,
+                        starttime: location.state.starttime,
+                        endtime:location.state.endtime,
+                        daterange:location.state.daterange,
+                        startdate:StartDate,
+                        enddate:EndDate,
                         service: location.state.service,
                         latLng: location.state.latLng,
                     },
@@ -253,20 +260,35 @@ export const SearchClient = () => {
             alert(error);
         });
        }else{
+        const date = location.state.date
+        let year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        if (month < 10) {
+            month = `0${month}`;
+        }
+        if (day < 10) {
+            day = `0${day}`;
+        }
+
+        const StartDate = `${year}-${month}-${day}`;
+        console.log(StartDate);
         axios
         .get(
-            "http://192.168.43.218/AalimSchduler/api/Search/SearchNazrah?fikkah=" +
+            "http://192.168.244.66/AalimSchduler/api/Search/SearchNazrah?fikkah=" +
                 location.state.fikkah +
                 "&services=" +
                 location.state.service +
-                "&time=" +
-                location.state.time +
+                "&starttime=" +
+                location.state.starttime +
+                "&endtime=" +
+                location.state.endtime +
                 "&latlng=" +
                 location.state.latLng +
                 "&startdate=" +
-                location.state.date +
+                StartDate +
                 "&enddate=" +
-                location.state.date +
+                StartDate +
                 "&cid=" +
                 location.state.data.Id
         )
@@ -300,7 +322,10 @@ export const SearchClient = () => {
                         Location: location.state.Location,
                         fikkah: location.state.fikkah,
                         day: location.state.day,
-                        time: location.state.time,
+                        starttime: location.state.starttime,
+                        endtime:location.state.endtime,
+                        startdate:StartDate,
+                        date:location.state.date,
                         service: location.state.service,
                         latLng: location.state.latLng,
                     },
@@ -335,7 +360,9 @@ export const SearchClient = () => {
                 </NavbarBrand>
                 <div>
                     <img src={Notification} width={20} height={20}></img>
-                    <img
+                    <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                         src={Logout}
                         width={20}
                         height={20}

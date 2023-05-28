@@ -29,15 +29,32 @@ export const SetProfileClient = () => {
     const history = useHistory();
     const location = useLocation();
     const message = "";
-    const [isDropdownOpen, setDropDownOpen] = useState(false);
-    const [selectedFikkahValue, setSelectedFikkahValue] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
     const [name, setName] = useState("");
     const [cnic, setCnic] = useState("");
     const [phoneno, setPhoneno] = useState("");
     const [gender, setGender] = useState(false);
     
-    
+     //  Fikkah Dropdown Code Start
+    //
+    //
+    const [isDropdownOpen, setDropDownOpen] = useState(false);
+    const [selectedFikkahValue, setSelectedFikkahValue] = useState("");
+    let lstFikkah=["Hanfia","Jafari","Maliki","Hanbali","Zaidiyyah", "Ibadiyyah","Zahiriyah"]
+
+    //dropdown open/close
+    function toggle() {
+        setDropDownOpen((prevState) => !prevState);
+    }
+
+    //select dropdown value
+    function DropwDownValueChange(fikkah) {
+        location.state.data.Fikkah = fikkah;
+        setSelectedFikkahValue(fikkah);
+    }
+    //
+    //
+    //  Fikkah Dropdown Code Close
     
 
     //change image from directory
@@ -47,7 +64,7 @@ export const SetProfileClient = () => {
     };
 
     //dropdown open/close
-    function toggle() {
+    function toggle() {       
         setDropDownOpen((prevState) => !prevState);
     }
 
@@ -93,7 +110,7 @@ export const SetProfileClient = () => {
        const formData = new FormData();
        formData.append('image', selectedImage); 
        formData.append('data', JSON.stringify(data));
-       axios.post( "http://192.168.43.218/AalimSchduler/api/ClientDetails/setProfile", formData, {
+       axios.post( "http://192.168.244.66/AalimSchduler/api/ClientDetails/setProfile", formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -126,7 +143,9 @@ export const SetProfileClient = () => {
                     Set Profile</NavbarBrand>
                 <div>
                     <img src={Notification} width={20} height={20}></img>
-                    <img
+                    <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                         src={Logout}
                         width={20}
                         height={20}
@@ -173,7 +192,7 @@ export const SetProfileClient = () => {
                           location.state.data.Image && location.state.image==null && (
                                 <Avatar
                                     onClick={handleClick}
-                                    src={"http://192.168.43.218/AalimSchduler/Content/Uploads/"+location.state.data.Image}
+                                    src={"http://192.168.244.66/AalimSchduler/Content/Uploads/"+location.state.data.Image}
                                     size="100"
                                     round={true}
                                 />
@@ -233,6 +252,7 @@ export const SetProfileClient = () => {
                     </Row>
                     <Row className="my-2 mx-2">
                         <Col>
+                           
                             <div>
                                 <Dropdown
                                     isOpen={isDropdownOpen}
@@ -241,67 +261,29 @@ export const SetProfileClient = () => {
                                     <DropdownToggle caret>
                                         {location.state.data.Fikkah
                                             ? location.state.data.Fikkah
-                                            : "Select an option"}
+                                            : "Select an Fikkah"}
                                     </DropdownToggle>
+                                   
                                     <DropdownMenu>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange("Hanfia")
-                                            }
-                                        >
-                                            Hanfia
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange("Jafari")
-                                            }
-                                        >
-                                            Jafari
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange("Maliki")
-                                            }
-                                        >
-                                            Maliki
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange("Hanbali")
-                                            }
-                                        >
-                                            Hanbali
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange(
-                                                    "Zaidiyyah"
-                                                )
-                                            }
-                                        >
-                                            Zaidiyyah
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange(
-                                                    "Ibadiyyah"
-                                                )
-                                            }
-                                        >
-                                            Ibadiyyah
-                                        </DropdownItem>
-                                        <DropdownItem
-                                            onClick={() =>
-                                                DropwDownValueChange(
-                                                    "Zahiriyah"
-                                                )
-                                            }
-                                        >
-                                            Zahiriyah
-                                        </DropdownItem>
+                                     {
+                                        lstFikkah.map((value,index)=>{
+                                            return (
+                                                <DropdownItem
+                                                onClick={() =>
+                                                    DropwDownValueChange(value)
+                                                }
+                                            >
+                                                {value}
+                                            </DropdownItem>
+                                            )
+                                        })
+                                     }
+                                        
                                     </DropdownMenu>
                                 </Dropdown>
                             </div>
+                        
+                          
                         </Col>
                     </Row>
                    

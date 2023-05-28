@@ -21,14 +21,18 @@ const SignIn = () => {
         e.preventDefault();
         axios
             .get(
-                "http://192.168.43.218/AalimSchduler/api/register/signin?email=" +
+                "http://192.168.244.66/AalimSchduler/api/register/signin?email=" +
                     email +
                     "&password=" +
                     password
             )
             .then((response) => {
                 console.log(response.data)
-                if (response.data["Schedules"] == undefined) {
+             if (response.data == "Not Exists") {
+                    alert(response.data);
+                } else if (response.data == "Error") {
+                    alert(response.data);
+                }else   if (response.data["Schedules"] == undefined) {
                     history.push(
                         {
                             pathname:"/main/clientdashboard",
@@ -38,19 +42,24 @@ const SignIn = () => {
                             }
                         }
                     );
-                } else if (response.data == "Not Exists") {
-                    alert(response.data);
-                } else if (response.data == "Error") {
-                    alert(response.data);
-                } else {
+                }
+                 else {
                     
-                  history.push({pathname:"/main/aalimdashboard", state : {
+                  history.push({
+                    pathname:"/main/aalimdashboard", 
+                    state : {
                     data:response.data
-                  }});
+                  }
+                });
+
                 }
             });
     };
+
+    //email textbox
     const [email, setEmail] = useState();
+
+    
     const [password, setPassword] = useState();
     return (
         <React.Fragment>
@@ -70,6 +79,8 @@ const SignIn = () => {
                                 SignIn
                             </CardTitle>
                             <CardBody>
+                                {/* Email TextBox Start */}
+
                                 <Row className="my-2">
                                     <Col>
                                         <div>
@@ -83,6 +94,8 @@ const SignIn = () => {
                                         </div>
                                     </Col>
                                 </Row>
+
+                                {/* Email TextBox End */}
                                 <Row className="my-2">
                                     <Col>
                                         <div>
@@ -98,10 +111,14 @@ const SignIn = () => {
                                 </Row>
 
                                 {/*
+                                Button Code Start
                                  */}
                                 <Button className="w-75" onClick={handleSubmit}>
                                     SignIn
                                 </Button>
+                                 {/*
+                                Button Code End
+                                 */}
                                 <Row className="ml-5 mt-2">
                                     <CardTitle className="mr-2">
                                         Didn't' have an account?

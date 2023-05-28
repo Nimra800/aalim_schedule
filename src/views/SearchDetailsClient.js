@@ -35,25 +35,27 @@ export const SearchDetailsClient = () => {
     
     const [search, setSearch] = useState(location.state.searchResult);
 
-  
+    console.log(location.state.starttime)
     
     console.log(search);
     function handleSendRequest(index){
+      if(location.state.service=='Nazrah'){
         const data={
             'Id':0,
             'AalimId':search[index].Id,
             'ClientId':location.state.data.Id,
             'Location':location.state.Location,
-            'StartTime':location.state.time.split('-')[0],
-            'EndTime':location.state.time.split('-')[1],
+            'StartTime':location.state.starttime,
+            'EndTime':location.state.endtime,
             'Servicess':location.state.service,
-            'Date':new Date().toISOString().slice(0, 10),
+            'hadiya':search[index].Hadiya,
+            'Date':location.state.startdate+','+location.state.enddate,
             'Status':"Pending"
             
         }
         console.log(data)
        
-        axios.post('http://192.168.43.218/AalimSchduler/api/request/sendrequest',data).then(response => {
+        axios.post('http://192.168.244.66/AalimSchduler/api/request/sendrequest',data).then(response => {
             if(response.data!="Error"){
               alert("Request Sent")
               const newSearch = [...search];
@@ -68,6 +70,38 @@ export const SearchDetailsClient = () => {
               alert(error);
             });
 
+      }else{
+        const data={
+            'Id':0,
+            'AalimId':search[index].Id,
+            'ClientId':location.state.data.Id,
+            'Location':location.state.Location,
+            'StartTime':location.state.starttime,
+            'EndTime':location.state.endtime,
+            'Servicess':location.state.service,
+            'hadiya':search[index].Hadiya,
+            'Date':location.state.startdate,
+            'Status':"Pending"
+            
+        }
+        console.log(data)
+       
+        axios.post('http://192.168.244.66/AalimSchduler/api/request/sendrequest',data).then(response => {
+            if(response.data!="Error"){
+              alert("Request Sent")
+              const newSearch = [...search];
+  newSearch[index].rid = response.data;
+  setSearch(newSearch);
+            }else{
+              alert("Error")
+            }
+             
+            })
+            .catch(error => {
+              alert(error);
+            });
+
+      }
     }
 
 
@@ -80,13 +114,14 @@ export const SearchDetailsClient = () => {
             'StartTime':location.state.time.split('-')[0],
             'EndTime':location.state.time.split('-')[1],
             'Servicess':location.state.service,
+            'hadiya':search[index].Hadiya,
             'Date':new Date().toISOString().slice(0, 10),
             'Status':"Pending"
             
         }
         console.log(data)
        
-        axios.post('http://192.168.43.218/AalimSchduler/api/request/cancelrequest',data).then(response => {
+        axios.post('http://192.168.244.66/AalimSchduler/api/request/cancelrequest',data).then(response => {
             if(response.data!="Error"){
               alert("Request Cancelled")
               const newSearch = [...search];
@@ -116,7 +151,9 @@ export const SearchDetailsClient = () => {
                                     Location: location.state.Location,
                                     fikkah: location.state.fikkah,
                                     day: location.state.day,
-                                    time: location.state.time,
+                                    starttime: location.state.starttime,
+                                    endtime:location.state.endtime,
+                                    daterange:location.state.daterange,
                                     service: location.state.service,
                                     latLng:location.state.latLng
                                 },
@@ -128,7 +165,9 @@ export const SearchDetailsClient = () => {
                 </NavbarBrand>
                 <div>
                     <img src={Notification} width={20} height={20}></img>
-                    <img
+                    <img onClick={
+                                ()=>history.push('/auth/signin')
+                            }
                         src={Logout}
                         width={20}
                         height={20}
@@ -177,6 +216,23 @@ export const SearchDetailsClient = () => {
                                                     {e.Distance + "Km"}
                                                 </CardSubtitle>
                                             </Row>
+                                            <Row>
+                                                <h5 className="ml-4">
+                                                    Hadiya:{" "}
+                                                </h5>
+                                                <CardSubtitle className="mt-0">
+                                                   Rs {e.Hadiya}
+                                                </CardSubtitle>
+                                            </Row>
+
+                                            {/* <Row>
+                                                <h5 className="ml-4">
+                                                    Rated BY:{" "}
+                                                </h5>
+                                                <CardSubtitle className="mt-0">
+                                                    {e.Ratedby}
+                                                </CardSubtitle>
+                                            </Row> */}
                                         </Col>
                                         <div className="px-4">
                                             <Avatar
@@ -184,7 +240,7 @@ export const SearchDetailsClient = () => {
                                                     height: 20,
                                                 }}
                                                 src={
-                                                    "http://192.168.43.218/AalimSchduler/Content/Uploads/" +
+                                                    "http://192.168.244.66/AalimSchduler/Content/Uploads/" +
                                                     e.Image
                                                 }
                                                 size="100"
